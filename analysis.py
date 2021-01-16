@@ -13,9 +13,9 @@ def authenticate_client():
 
 client = authenticate_client()
 
-def sentiment_analysis(client, meeting_content):
+def sentiment_analysis(client, content):
     out = ""
-    response = client.analyze_sentiment(documents = meeting_content)[0]
+    response = client.analyze_sentiment(documents = [content])[0]
     out += "Sentiment: {}".format(response.sentiment)
     out += "\n\tOverall scores: positive={0:.2f}; neutral={1:.2f}; negative={2:.2f} \n".format(
         response.confidence_scores.positive,
@@ -24,8 +24,9 @@ def sentiment_analysis(client, meeting_content):
     )
     return out
 
-while True:
-    print(sentiment_analysis(client, [input("type something here to evalute sentiment: ")]))
+if __name__ == "__main__":
+    while True:
+        print(sentiment_analysis(client, input("type something here to evalute sentiment: ")))
 
 # yay = sentiment_analysis(client, ["i'm so happy"])
 # print(yay)
