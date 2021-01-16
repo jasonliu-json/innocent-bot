@@ -22,11 +22,11 @@ def sentiment_analysis(client, content):
         response.confidence_scores.neutral,
         response.confidence_scores.negative,
     )
-    return out
+    return out, response.confidence_scores.positive, response.confidence_scores.neutral, response.confidence_scores.negative
 
-if __name__ == "__main__":
-    while True:
-        print(sentiment_analysis(client, input("type something here to evalute sentiment: ")))
+# if __name__ == "__main__":
+#     while True:
+#         print(sentiment_analysis(client, input("type something here to evalute sentiment: ")))
 
 # yay = sentiment_analysis(client, ["i'm so happy"])
 # print(yay)
