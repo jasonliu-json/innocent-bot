@@ -1,7 +1,7 @@
 import discord
 import os
 
-from token import TOKEN
+from bot_token import BOT_TOKEN
 
 client = discord.Client()
 
@@ -15,6 +15,6 @@ async def on_message(message):
         return
 
     if message.content.startswith('$hello'):
-        await message.channel.send('Hello!')
+        await message.channel.send('Hello!----')
 
-client.run(TOKEN)
+client.run(BOT_TOKEN)
