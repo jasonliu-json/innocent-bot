@@ -1,10 +1,9 @@
-key = "66809a9c3def40138dcf988dd9b13db5"
-endpoint = "https://textkeywords.cognitiveservices.azure.com/"
 
 from azure.ai.textanalytics import TextAnalyticsClient
 from azure.core.credentials import AzureKeyCredential
 
-
+from bot_token import key
+from bot_token import endpoint
 def authenticate_client():
     ta_credential = AzureKeyCredential(key)
     text_analytics_client = TextAnalyticsClient(
