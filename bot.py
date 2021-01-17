@@ -24,7 +24,7 @@ starter_encouragements = [
 ]
 
 # intents dataset
-with open('intents.json') as f:
+with open('datasets/intents.json') as f:
   data = json.load(f)
 
 ### --------------------------------------------- nvm
@@ -84,21 +84,22 @@ async def on_message(message):
     if message.author == client.user:
         return
 
-    user = message.author.mention
+    mention = message.author.mention
     msg_in = message.content.lower()
     msg_out = message.channel.send
 
-    # remove later
-    if msg_in.startswith('$startswith'):
-        await msg_out('yop')    
+    # remove later -- dm test
+    if msg_in.startswith('$dm'):
+        await message.author.send('👋')  
     
+    # starter thing remove l8er/expand
     if msg_in.startswith('$enlighten me'):
         quote = get_quote()
         await msg_out(quote)
     
     for intent in data["intents"]:
         if any(word in msg_in for word in intent['patterns']):
-            await msg_out(user + " " + random.choice(intent['responses']))
+            await msg_out(mention + " " + random.choice(intent['responses']))
 
     # if any(word in msg for word in sad_words):
     #     await message.channel.send(random.choice(starter_encouragements))

@@ -3,8 +3,6 @@ import os
 import requests
 import json
 import random
-import requests
-import json
 
 from bot_token import BOT_TOKEN
 from average_queue import AverageQueue
@@ -90,6 +88,8 @@ class Bot:
             # negative case: the average sentiment of the recent messages surpass the NEGATIVE_THRESHOLD
             if self.recent_messages_sentiment.average() < NEGATIVE_THRESHOLD:
                 await message.channel.send(NEGATIVE_MESSAGE)
+                # temp
+                await message.author.send('Hello friend, checking in! Stay strong, you matter! ❤️') 
                 print("negative")
 
             # positive case
