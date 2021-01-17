@@ -1,0 +1,28 @@
+{"intents": [
+        {"tag": "greeting",
+         "patterns": ["hi", "is anyone there", "hello", "good day", "whats up", "aloha", "someone talk to me"],
+         "responses": ["Hello!", "Good to see you!", "Hi there", "You look lovely today!"],
+         "context_set": ""
+        },
+        {"tag": "goodbye",
+         "patterns": ["cya", "see you later", "goodbye", "i'm leaving", "have a good day", "bye", "peace out"],
+         "responses": ["Sad to see you go :(", "Talk to you later", "Goodbye!", "Visit me soon", "Nooooooo don't leave"],
+         "context_set": ""
+        },
+        {"tag": "name",
+         "patterns": ["what is your name", "what should I call you", "whats your name?"],
+         "responses": ["idk", "tbd", "give me ideas!", "call me by your name ;)"],
+         "context_set": ""
+        },
+        {"tag": "github",
+         "patterns": ["how bad is my github", "is my github bad", "review my github", "https://github.com/", "my github is", "roast my github"],
+         "responses": [
+                "Your github is pushing-to-master-create-react-app-why-do-i-see-node-modules-in-your-commits bad.",
+                "Your github is you-really-need-a-repo-for-fizzbuzz?-leaked-your-secrets-didn't-use-gitignore-force-push bad.",
+                "Your github is lingering-branches-rampant-history-rewriting-with-rebase-incomprehensible-commit-messages bad.",
+                "Your github is empty-read-me-add-files-via-upload-one-commit-only bad.",
+                "Your github is addressing-comments-merge-conflicts-galore-no-branch-protection bad."],
+         "context_set": ""
+        }
+   ]
+}
