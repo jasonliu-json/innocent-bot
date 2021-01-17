@@ -25,7 +25,7 @@ starter_encouragements = [
 ]
 
 # intents dataset
-with open('datasets/intents.json') as f:
+with open('../datasets/intents.json') as f:
   data = json.load(f)
 
 ### --------------------------------------------- nvm
