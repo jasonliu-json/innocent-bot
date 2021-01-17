@@ -117,6 +117,7 @@ async def on_message(message):
             await message.channel.send(NEGATIVE_MESSAGE)
             user_attributes[author].messages_count = 0
             print("negative")
+            # dm message.author
 
         # positive case
         elif user_sentiment > POSITIVE_THRESHOLD:

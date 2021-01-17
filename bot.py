@@ -15,12 +15,13 @@ from bot_token import BOT_TOKEN
 
 client = discord.Client()
 
-# just words
+# just words test
 sad_words = ["sad", "depressed", "unhappy", "angry", "miserable"]
 starter_encouragements = [
   "You got this",
   "加油！",
-  "Take a break, you truly deserve it!"
+  "Take a break, you truly deserve it!",
+  'Hello friend, checking in! Stay strong, you matter! ❤️'
 ]
 
 # intents dataset
@@ -90,6 +91,7 @@ async def on_message(message):
 
     # remove later -- dm test
     if msg_in.startswith('$dm'):
+        await msg_out('check your dm')
         await message.author.send('👋')  
     
     # starter thing remove l8er/expand
@@ -100,8 +102,9 @@ async def on_message(message):
     for intent in data["intents"]:
         if any(word in msg_in for word in intent['patterns']):
             await msg_out(mention + " " + random.choice(intent['responses']))
-
-    # if any(word in msg for word in sad_words):
-    #     await message.channel.send(random.choice(starter_encouragements))
+    
+    # starter
+    if any(word in msg_in for word in sad_words):
+        await message.author.send(random.choice(starter_encouragements))
 
 client.run(BOT_TOKEN)
