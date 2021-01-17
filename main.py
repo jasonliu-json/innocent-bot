@@ -1,3 +1,4 @@
+from keep_alive import keep_alive
 import discord
 import os
 import random
@@ -13,13 +14,13 @@ NEGATIVE_THRESHOLD = -0.8
 NEUTRAL_THRESHOLD = 0.25
 
 # the number of recent messages used to analyse sentiment
-NUMBER_OF_RECENT_MESSAGES_KEPT = 5
+NUMBER_OF_RECENT_MESSAGES_KEPT = 10
 
 # the bot will wait for this many user messages until sending another messsage
-BOT_SENTIMENT_MESSAGE_COUNT = 5
+BOT_SENTIMENT_MESSAGE_COUNT = 10
 
-POSITIVE_MESSAGE = "happy!"
-NEGATIVE_MESSAGE = "r u ok lol?"
+POSITIVE_MESSAGE = "You seem like you're in a good mood!"
+NEGATIVE_MESSAGE = "Feeling down? Want to talk about it?"
 NEUTRAL_MESSAGE = ""
 
 discord_client = discord.Client()
@@ -97,7 +98,7 @@ async def on_message(message):
         await msg_out('check your dm')
         await message.author.send('👋')
 
-        # starter thing remove l8er/expand
+    # starter thing remove l8er/expand
     if msg_in.startswith('$enlighten me'):
         quote = get_quote()
         await msg_out(quote)
@@ -152,16 +153,15 @@ async def on_message(message):
 
         # negative case: the average sentiment of the recent messages surpass the NEGATIVE_THRESHOLD
         if user_sentiment < NEGATIVE_THRESHOLD:
-            await message.channel.send(NEGATIVE_MESSAGE)
+            await message.channel.send(mention + " " + NEGATIVE_MESSAGE)
             user_attributes[author].messages_count = 0
             random_message = random.choice(starter_encouragements)
             await message.author.send(random_message)
             print("negative")
-            # dm message.author
 
         # positive case
         elif user_sentiment > POSITIVE_THRESHOLD:
-            await message.channel.send(POSITIVE_MESSAGE)
+            await message.channel.send(mention + " " + POSITIVE_MESSAGE)
             user_attributes[author].messages_count = 0
             print("positive")
 
@@ -171,8 +171,7 @@ async def on_message(message):
             user_attributes[author].messages_count = 0
             print("neutral")
 
-
-
+keep_alive()
 discord_client.run(BOT_TOKEN)
 
 """
