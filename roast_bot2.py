@@ -8,8 +8,8 @@ from bot_token import BOT_TOKEN
 from average_queue import AverageQueue
 from analysis import *
 
-POSITIVE_THRESHOLD = 0.5
-NEGATIVE_THRESHOLD = -0.5
+POSITIVE_THRESHOLD = 0.8
+NEGATIVE_THRESHOLD = -0.8
 NEUTRAL_THRESHOLD = 0.25
 
 # the number of recent messages used to analyse sentiment
@@ -28,6 +28,22 @@ azure_client = authenticate_client()
 """
 main program
 """
+
+
+
+# just words test
+sad_words = ["sad", "depressed", "unhappy", "angry", "miserable"]
+starter_encouragements = [
+  "You got this",
+  "加油！",
+  "Take a break, you truly deserve it!",
+  'Hello friend, checking in! Stay strong, you matter! ❤️'
+]
+
+# intents dataset
+with open('datasets/intents.json') as f:
+  data = json.load(f)
+
 
 
 class Attributes:
@@ -71,6 +87,28 @@ async def on_message(message):
     if message.content.startswith('$inspire'):
         quote = get_quote()
         await message.channel.send(quote)
+
+    mention = message.author.mention
+    msg_in = message.content.lower()
+    msg_out = message.channel.send
+
+    # remove later -- dm test
+    if msg_in.startswith('$dm'):
+        await msg_out('check your dm')
+        await message.author.send('👋')
+
+        # starter thing remove l8er/expand
+    if msg_in.startswith('$enlighten me'):
+        quote = get_quote()
+        await msg_out(quote)
+
+    for intent in data["intents"]:
+        if any(word in msg_in for word in intent['patterns']):
+            await msg_out(mention + " " + random.choice(intent['responses']))
+
+    # starter
+    # if any(word in msg_in for word in sad_words):
+    #     await message.author.send(random.choice(starter_encouragements))
 
     # increment counter for the number of user messages since the last bot message
     user_attributes[author].messages_count += 1
@@ -116,6 +154,8 @@ async def on_message(message):
         if user_sentiment < NEGATIVE_THRESHOLD:
             await message.channel.send(NEGATIVE_MESSAGE)
             user_attributes[author].messages_count = 0
+            random_message = random.choice(starter_encouragements)
+            await message.author.send(random_message)
             print("negative")
             # dm message.author
 
